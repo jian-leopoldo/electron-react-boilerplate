@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 
 import styled from 'styled-components'
+import { useNavigate } from 'react-router'
 import { useTable } from 'react-table'
 
 
@@ -62,19 +63,19 @@ const Styles = styled.div`
 
 function Table({ columns, data }) {
 
+  const navigate = useNavigate();
+
   const [file, setFile] = useState(null);
-  const [rows, setRows] = useState([{
-    firstName: "asd"
-  }]);
+  const [rows, setRows] = useState([]);
 
   const [name, setName] = useState("valor inicial");
 
   useEffect(() => {
-    window.api.receive("fromMain", (data) => {
-      console.log(`Received ${data} from main process`);
-      setName(data.firstName)
-      setRows([...rows, data])
-    });
+    // window.api.receive("fromMain", (data) => {
+    //   console.log(`Received ${data} from main process`);
+    //   setName(data.firstName)
+    //   setRows([...rows, data])
+    // });
 
   }, [rows])
 
@@ -84,8 +85,7 @@ function Table({ columns, data }) {
     <div>
       <button onClick={() => {
         window.api.send("toMain", file.path);
-        const childWindow = window.open('', 'modal')
-        childWindow.document.write('<h1>Hello</h1>')
+        navigate("tablePreview")
       }}>
         Log
       </button>

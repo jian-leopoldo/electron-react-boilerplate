@@ -33,7 +33,11 @@ function createWindow() {
 
   ipcMain.on("toMain", (event, args) => {
     saveFile(args, win)
-    // win.webContents.send("fromMain", { name: 'jian' });
+  });
+
+  ipcMain.on("insertDatabase", (event, args) => {
+    console.log("sended")
+    console.log(args)
   });
 
 }
