@@ -1,0 +1,4 @@
+firstName,lastName,age,visits,progress,status,desc,boolean
+jian,Rodrigues,20,2,1,false
+jose,teste,true
+jian,Rodrigues,20,2,1,false

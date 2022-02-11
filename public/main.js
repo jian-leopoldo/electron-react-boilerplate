@@ -4,6 +4,9 @@ const { app, BrowserWindow } = require('electron');
 
 require("@electron/remote/main").initialize()
 const isDev = require("electron-is-dev");
+const { ipcMain } = require('electron')
+const saveFile = require("../src/backend/saveFile");
+// const saveFile = require("")
 
 
 function createWindow() {
@@ -12,7 +15,10 @@ function createWindow() {
     width: 800,
     height: 600,
     webPreferences: {
-      nodeIntegration: true,
+      enableRemoteModule: false,
+      nodeIntegration: false,
+      contextIsolation: true,
+      preload: path.join(__dirname, '../src/preload.js')
     },
   });
 
@@ -25,9 +31,23 @@ function createWindow() {
   );
   // Open the DevTools.
 
+  ipcMain.on("toMain", (event, args) => {
+    saveFile(args, win)
+    // win.webContents.send("fromMain", { name: 'jian' });
+  });
+
 }
 
-app.on("ready", createWindow)
+
+app.whenReady().then(() => {
+  createWindow()
+  console.log("eaea")
+  app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+      createWindow()
+    }
+  })
+})
 // This method will be called when Electron has finished
 // initialization and is ready to create browser windows.
 // Some APIs can only be used after this event occurs.
@@ -38,11 +58,5 @@ app.on("ready", createWindow)
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
     app.quit();
-  }
-});
-
-app.on('activate', () => {
-  if (BrowserWindow.getAllWindows().length === 0) {
-    createWindow();
   }
 });
