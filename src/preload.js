@@ -12,13 +12,13 @@ contextBridge.exposeInMainWorld(
   databaseConfig: dbConfig,
   send: (channel, data) => {
     // whitelist channels
-    let validChannels = ["toMain", "insertDatabase"];
+    let validChannels = ["toMain", "insertDatabase", "loadJson", "saveData"];
     if (validChannels.includes(channel)) {
       ipcRenderer.send(channel, data);
     }
   },
   receive: (channel, func) => {
-    let validChannels = ["fromMain"];
+    let validChannels = ["fromMain", "sendJson", "saveResponse", "allDataSaved"];
     if (validChannels.includes(channel)) {
       // Deliberately strip event as it includes `sender`
       ipcRenderer.on(channel, (event, ...args) => func(...args));

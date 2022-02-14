@@ -6,15 +6,21 @@ import { Configuration, TablePreview } from './pages';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { FileProvider } from './providers/file';
+import { ConfigProvider } from './providers/config';
 
 ReactDOM.render(
   <BrowserRouter>
     <React.StrictMode>
-      <Routes>
-        <Route path="/" element={<App />} />
-        <Route path="config" element={<Configuration />} />
-        <Route path="tablePreview" element={<TablePreview />} />
-      </Routes>
+      <ConfigProvider>
+        <FileProvider>
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="config" element={<Configuration />} />
+            <Route path="tablePreview" element={<TablePreview />} />
+          </Routes>
+        </FileProvider>
+      </ConfigProvider>
     </React.StrictMode>
   </BrowserRouter>,
   document.getElementById('root')

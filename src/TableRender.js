@@ -1,37 +1,10 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 
 import styled from 'styled-components'
 import { useNavigate } from 'react-router'
 import { useTable } from 'react-table'
+import { FileContext } from './providers/file'
 
-
-const makeData = [
-  {
-    firstName: "Jian Leopoldo",
-    lastName: "Rodrigues",
-    age: 20,
-    visits: 2,
-    progress: 1,
-    status: 'maried'
-  },
-  {
-    firstName: "Jian Leopoldo",
-    lastName: "Rodrigues",
-    age: 20,
-    visits: 2,
-    progress: 1,
-    status: 'maried'
-  },
-  {
-    firstName: "Jian Leopoldo",
-    lastName: "Rodrigues",
-    age: 20,
-    visits: 2,
-    progress: 1,
-    status: 'maried'
-  },
-
-]
 const Styles = styled.div`
   padding: 1rem;
 
@@ -65,38 +38,21 @@ function Table({ columns, data }) {
 
   const navigate = useNavigate();
 
-  const [file, setFile] = useState(null);
+  const { file, setFile } = useContext(FileContext);
   const [rows, setRows] = useState([]);
-
-  const [name, setName] = useState("valor inicial");
-
-  useEffect(() => {
-    // window.api.receive("fromMain", (data) => {
-    //   console.log(`Received ${data} from main process`);
-    //   setName(data.firstName)
-    //   setRows([...rows, data])
-    // });
-
-  }, [rows])
-
-
 
   return (
     <div>
-      <button onClick={() => {
-        window.api.send("toMain", file.path);
-        navigate("tablePreview")
-      }}>
-        Log
-      </button>
       <div>
         {rows.map(r => {
           return <p>{r.firstName}</p>
         })}
-        {name}
       </div>
       <input type="file"
-        onChange={e => setFile(e.target.files[0])}
+        onChange={e => {
+          navigate("tablePreview")
+          setFile(e.target.files[0])
+        }}
       />
 
     </div>

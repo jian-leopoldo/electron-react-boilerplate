@@ -7,18 +7,6 @@ function saveFile(file, win) {
   return readFile(file, win);
 }
 
-function readCsv(file) {
-  let myMap = [];
-  fs.createReadStream(file)
-    .pipe(csv())
-    .on('data', (row) => {
-      // Build javascript object
-      return myMap[row['key']] = row['value'];
-    })
-    .on('end', () => {
-      console.log('Done.');
-    });
-}
 
 async function readFile(filePath, win) {
   let myMap = [];

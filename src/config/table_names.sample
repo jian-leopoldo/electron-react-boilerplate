@@ -1,0 +1,16 @@
+	bodyType = "";
+		cabNo = "";
+		chassisNo = "";
+		colorCode = "";
+		variant = "";
+		testCab = false;
+		stat = false;
+		partRefNo = "";
+		bodyTypes = new ArrayList<String>();
+		colorCodes = new ArrayList<String>();
+		variants = new ArrayList<String>();
+		partrefNos = new ArrayList<String>();
+		// default value to dynamically load input fields
+		orderType = "N";
+		selectedDataVO = new PlantDataVO();
+		controller = new OrderDataInputController(this);

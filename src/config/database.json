@@ -1,6 +1,16 @@
 {
-    "database": "teste",
+    "database": "./sqlite.db",
     "password": "jian199834",
     "user": "saibr123",
-    "ip": "192.168.0.1"
+    "ip": "192.168.0.1",
+    "table_columns": [
+        "firstName",
+        "lastName",
+        "age",
+        "visits",
+        "progress",
+        "status",
+        "desc"
+    ],
+    "table_name": "names"
 }

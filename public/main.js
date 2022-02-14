@@ -6,6 +6,9 @@ require("@electron/remote/main").initialize()
 const isDev = require("electron-is-dev");
 const { ipcMain } = require('electron')
 const saveFile = require("../src/backend/saveFile");
+const loadJson = require("../src/backend/loadJson");
+const saveData = require("../src/backend/saveData");
+
 // const saveFile = require("")
 
 
@@ -33,6 +36,15 @@ function createWindow() {
 
   ipcMain.on("toMain", (event, args) => {
     saveFile(args, win)
+  });
+
+  ipcMain.on("loadJson", (event, args) => {
+    loadJson(args, win)
+  });
+
+  ipcMain.on("saveData", (event, args) => {
+    // console.log(args)
+    saveData(args, win)
   });
 
   ipcMain.on("insertDatabase", (event, args) => {
